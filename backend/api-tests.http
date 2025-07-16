@@ -1,0 +1,164 @@
+### Lox Interpreter API Tests
+
+
+### Test 1: Get all examples
+GET http://localhost:8080/api/lox/examples
+Accept: application/json
+
+
+### Test 2: Simple Hello World execution
+POST http://localhost:8080/api/lox/execute
+Content-Type: application/json
+Accept: application/json
+
+{
+  "code": "print \"Hello, World!\";"
+}
+
+
+### Test 3: Variables and operations
+POST http://localhost:8080/api/lox/execute
+Content-Type: application/json
+Accept: application/json
+
+{
+  "code": "var name = \"Lox\";\nvar version = 1.0;\nprint \"Language: \" + name;\nprint \"Version: \" + version;"
+}
+
+
+### Test 4: Function definition and call
+POST http://localhost:8080/api/lox/execute
+Content-Type: application/json
+Accept: application/json
+
+{
+  "code": "fun greet(name) {\n    return \"Hello, \" + name + \"!\";\n}\n\nprint greet(\"World\");\nprint greet(\"Lox\");"
+}
+
+
+### Test 5: Class definition and instantiation
+POST http://localhost:8080/api/lox/execute
+Content-Type: application/json
+Accept: application/json
+
+{
+  "code": "class Person {\n    init(name, age) {\n        this.name = name;\n        this.age = age;\n    }\n\n    introduce() {\n        print \"Hi, I'm \" + this.name + \" and I'm \" + this.age + \" years old.\";\n    }\n}\n\nvar person = Person(\"Alice\", 30);\nperson.introduce();"
+}
+
+
+### Test 6: Control flow (if/else and loops)
+POST http://localhost:8080/api/lox/execute
+Content-Type: application/json
+Accept: application/json
+
+{
+  "code": "var x = 10;\n\nif (x > 5) {\n    print \"x is greater than 5\";\n} else {\n    print \"x is not greater than 5\";\n}\n\nfor (var i = 1; i <= 5; i = i + 1) {\n    print \"Count: \" + i;\n}"
+}
+
+
+### Test 7: Fibonacci sequence
+POST http://localhost:8080/api/lox/execute
+Content-Type: application/json
+Accept: application/json
+
+{
+  "code": "fun fibonacci(n) {\n    if (n <= 1) return n;\n    return fibonacci(n - 1) + fibonacci(n - 2);\n}\n\nfor (var i = 0; i < 10; i = i + 1) {\n    print \"fibonacci(\" + i + \") = \" + fibonacci(i);\n}"
+}
+
+
+### Test 8: Syntax error test
+POST http://localhost:8080/api/lox/execute
+Content-Type: application/json
+Accept: application/json
+
+{
+  "code": "var x = 10\nprint x;"
+}
+
+
+### Test 9: Runtime error test
+POST http://localhost:8080/api/lox/execute
+Content-Type: application/json
+Accept: application/json
+
+{
+  "code": "var x = 10;\nvar y = x + z;"
+}
+
+
+### Test 10: Empty code test
+POST http://localhost:8080/api/lox/execute
+Content-Type: application/json
+Accept: application/json
+
+{
+  "code": ""
+}
+
+
+### Test 11: Test with while loop
+POST http://localhost:8080/api/lox/execute
+Content-Type: application/json
+Accept: application/json
+
+{
+  "code": "var i = 0;\nwhile (i < 5) {\n    print \"Iteration: \" + i;\n    i = i + 1;\n}"
+}
+
+
+### Test 12: Test with nested functions
+POST http://localhost:8080/api/lox/execute
+Content-Type: application/json
+Accept: application/json
+
+{
+  "code": "fun outer() {\n    var x = \"outer\";\n    \n    fun inner() {\n        print x;\n    }\n    \n    inner();\n}\n\nouter();"
+}
+
+
+### Test 13: Test with class inheritance
+POST http://localhost:8080/api/lox/execute
+Content-Type: application/json
+Accept: application/json
+
+{
+  "code": "class Animal {\n    speak() {\n        print \"Animal makes a sound\";\n    }\n}\n\nclass Dog < Animal {\n    speak() {\n        print \"Dog barks\";\n    }\n}\n\nvar dog = Dog();\n dog.speak();"
+}
+
+
+
+### Test 14: Test with CORS headers (from frontend origin)
+POST http://localhost:8080/api/lox/execute
+Content-Type: application/json
+Accept: application/json
+Origin: http://localhost:5173
+
+{
+  "code": "print \"Testing CORS\";"
+}
+
+
+### Test 15: Test with malformed JSON
+POST http://localhost:8080/api/lox/execute
+Content-Type: application/json
+Accept: application/json
+
+{
+  "code": "print \"Hello\";",
+  "invalid": "json"
+}
+
+
+### Test 16: Test with very long code
+POST http://localhost:8080/api/lox/execute
+Content-Type: application/json
+Accept: application/json
+
+{
+  "code": "// This is a comment\nfun longFunction() {\n    var result = 0;\n    for (var i = 0; i < 1000; i = i + 1) {\n        result = result + i;\n    }\n    return result;\n}\n\nprint \"Sum of first 1000 numbers: \" + longFunction();"
+}
+
+
+### Test 20: Test server status
+GET http://localhost:8080/
+Accept: text/html
